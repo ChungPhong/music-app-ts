@@ -8,13 +8,16 @@ import express, { Express, Request, Response } from "express";
 // database.connect();
 const app: Express = express();
 const port: number = 3000;
+
+app.set("views", "./views");
+app.set("view engine", "pug");
 // const port: number | string = process.env.Port || 3000;
 // app.use(cors());
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 // mainV1Routes(app);
 app.get("/topics", (req: Request, res: Response) => {
-  res.send("Chủ đề bài hát");
+  res.render("client/pages/topics/index");
 });
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
