@@ -83,3 +83,88 @@ a {
 }
 
 /* header  */
+
+/* song  */
+/* Định dạng chung cho container */
+.song-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.song-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Định dạng cho phần hình ảnh */
+.inner-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Định dạng cho nội dung */
+.inner-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Tựa đề bài hát */
+.inner-title a {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.inner-title a:hover {
+  color: #ff5722;
+}
+
+/* Tên ca sĩ */
+.inner-singer {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.inner-singer i {
+  margin-right: 5px;
+}
+
+/* Thông tin lượt thích và thời gian */
+.inner-like,
+.inner-time {
+  font-size: 0.85em;
+  color: #999;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.inner-like i,
+.inner-time i {
+  margin-right: 5px;
+}
+
+/* Làm đẹp số lượt thích */
+.inner-like {
+  color: #ff9800;
+}
+
+/* Làm đẹp thời gian */
+.inner-time {
+  color: #607d8b;
+}
+/* END SONG  */
