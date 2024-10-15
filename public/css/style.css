@@ -198,7 +198,10 @@ a {
 .singer-detail .inner-actions .inner-like {
   cursor: pointer;
 }
-.singer-detail .inner-actions .inner-like i {
+.singer-detail .inner-actions .inner-like.active {
+  font-weight: 700;
+}
+.singer-detail .inner-actions .inner-like.active {
   color: #0059ff;
 }
 .singer-detail .inner-actions .inner-heart {
@@ -226,7 +229,7 @@ a {
   animation-duration: 12s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  /* animation-play-state: paused; */
+  animation-play-state: paused;
 }
 @keyframes spin {
   from {
