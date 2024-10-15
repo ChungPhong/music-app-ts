@@ -198,7 +198,7 @@ a {
 .singer-detail .inner-actions .inner-like {
   cursor: pointer;
 }
-.singer-detail .inner-actions .inner-like.active {
+.singer-detail .inner-actions .inner-like.active i {
   font-weight: 700;
 }
 .singer-detail .inner-actions .inner-like.active {
@@ -209,6 +209,12 @@ a {
 }
 .singer-detail .inner-actions .inner-heart i {
   color: #b90000;
+}
+.singer-detail .inner-actions .inner-heart.active {
+  color: #b90000;
+}
+.singer-detail .inner-actions .inner-heart.active i {
+  font-weight: 800;
 }
 .singer-detail .inner-play {
   display: flex;

@@ -14,9 +14,8 @@ const favoriteSongSchema = new mongoose.Schema(
   }
 );
 const FavoriteSong = mongoose.model(
-  "Singer",
+  "FavoriteSong",
   favoriteSongSchema,
   "favorite-songs"
 );
-
 export default FavoriteSong;
