@@ -23,13 +23,14 @@ export const result = async (req: Request, res: Response) => {
     for (const item of songs) {
       const infoSinger = await Singer.findOne({
         _id: item.singerId,
-        deleted: false,
-      }).select("fullName");
+      });
+
       newSongs.push({
         id: item.id,
         title: item.title,
         avatar: item.avatar,
         like: item.like,
+        slug: item.slug,
         infoSinger: {
           fullName: infoSinger.fullName,
         },

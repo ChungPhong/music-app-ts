@@ -114,7 +114,7 @@ if (boxSearch) {
                   <div class="inner-title">${song.title}</div>
                   <div class="inner-singer"><i class="fa-solid fa-microphone-lines"></i> ${song.infoSinger.fullName}</div>
               </div>
-        </a>
+            </a>
             `;
           });
           const boxList = boxSuggest.querySelector(".inner-list");
