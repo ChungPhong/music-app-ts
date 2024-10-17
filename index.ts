@@ -8,6 +8,7 @@ import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
 import { systemConfig } from "./config/config";
 import path from "path";
+import methodOverride from "method-override";
 
 dotenv.config();
 database.connect();
@@ -19,6 +20,9 @@ app.use(express.static("public"));
 // parse application/x-www-form-urlencoded
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//method-override
+app.use(methodOverride("_method"));
 
 app.set("views", "./views");
 app.set("view engine", "pug");
