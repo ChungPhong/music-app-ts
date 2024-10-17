@@ -10,6 +10,15 @@ export const index = async (req: Request, res: Response) => {
     deleted: false,
   });
 
+  // Lấy ra thông tin ca sĩ bên Singer
+  for (const song of songs) {
+    const singerName = await Singer.findOne({
+      deleted: false,
+      _id: song.singerId,
+    });
+    song.singerId = singerName.fullName;
+  }
+
   res.render("admin/pages/songs/index", {
     pageTitle: "Quản lý bài hát",
     songs: songs,
@@ -45,5 +54,6 @@ export const createPost = async (req: Request, res: Response) => {
   };
   const song = new Song(dataSong);
   await song.save();
+
   res.redirect(`/${systemConfig.prefixAdmin}/songs`);
 };
