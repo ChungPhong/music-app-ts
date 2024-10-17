@@ -8,12 +8,17 @@ import clientRoutes from "./routes/client/index.route";
 import adminRoutes from "./routes/admin/index.route";
 import { systemConfig } from "./config/config";
 import path from "path";
+
 dotenv.config();
 database.connect();
 const app: Express = express();
 const port: number | string = process.env.Port || 3000;
 
 app.use(express.static("public"));
+
+// parse application/x-www-form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.set("views", "./views");
 app.set("view engine", "pug");
