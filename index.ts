@@ -15,8 +15,6 @@ database.connect();
 const app: Express = express();
 const port: number | string = process.env.Port || 3000;
 
-app.use(express.static("public"));
-
 // parse application/x-www-form-urlencoded
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,7 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 //method-override
 app.use(methodOverride("_method"));
 
-app.set("views", "./views");
+app.use(express.static(`${__dirname}/public`));
+
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
 
 // TinyMCE
