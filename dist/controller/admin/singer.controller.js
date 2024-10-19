@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPost = exports.create = exports.index = void 0;
+exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const singer_model_1 = __importDefault(require("../../model/singer.model"));
 const config_1 = require("../../config/config");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,3 +42,15 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.redirect(`/${config_1.systemConfig.prefixAdmin}/singers`);
 });
 exports.createPost = createPost;
+const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const find = {
+        deleted: false,
+        _id: req.params.id,
+    };
+    const records = yield singer_model_1.default.findOne(find);
+    res.render("admin/pages/singers/detail", {
+        pageTitle: "Thông tin ca sĩ",
+        records: records,
+    });
+});
+exports.detail = detail;

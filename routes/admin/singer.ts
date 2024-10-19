@@ -4,6 +4,7 @@ import multer from "multer";
 import * as uploadCloud from "../../middlewares/admin/uploadCloud.middleware";
 const upload = multer();
 import * as controller from "../../controller/admin/singer.controller";
+
 router.get("/", controller.index);
 router.get("/create", controller.create);
 router.post(
@@ -12,4 +13,6 @@ router.post(
   uploadCloud.uploadSingle,
   controller.createPost
 );
+router.get("/detail/:id", controller.detail);
+
 export const singerRoutes: Router = router;

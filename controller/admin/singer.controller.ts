@@ -31,3 +31,31 @@ export const createPost = async (req: Request, res: Response) => {
   await singerSong.save();
   res.redirect(`/${systemConfig.prefixAdmin}/singers`);
 };
+
+//[GET]admin/singers/detail/:id
+export const detail = async (req: Request, res: Response) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+  const records = await Singer.findOne(find);
+
+  res.render("admin/pages/singers/detail", {
+    pageTitle: "Thông tin ca sĩ",
+    records: records,
+  });
+
+  //   try {
+  //     const find = {
+  //       deleted: false,
+  //       _id: req.params.id,
+  //     };
+  //     const records = await Singer.findOne(find);
+  //     res.render("admin/page/singers/detail", {
+  //       pageTitle: "Thông tin ca sĩ",
+  //       records: records,
+  //     });
+  //   } catch (error) {
+  //     res.redirect(`/${systemConfig.prefixAdmin}/singers`);
+  //   }
+};
