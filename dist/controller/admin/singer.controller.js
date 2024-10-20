@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.detail = exports.createPost = exports.create = exports.index = void 0;
+exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const singer_model_1 = __importDefault(require("../../model/singer.model"));
 const config_1 = require("../../config/config");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,3 +54,26 @@ const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.detail = detail;
+const edit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const data = yield singer_model_1.default.findOne({
+        deleted: false,
+        _id: id,
+    });
+    res.render("admin/pages/singers/edit", {
+        pageTitle: "Chỉnh sửa danh mục sản phẩm",
+        data: data,
+    });
+});
+exports.edit = edit;
+const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    try {
+        yield singer_model_1.default.updateOne({ _id: id }, req.body);
+        res.redirect(`/${config_1.systemConfig.prefixAdmin}/singers`);
+    }
+    catch (error) {
+        res.redirect("back");
+    }
+});
+exports.editPatch = editPatch;

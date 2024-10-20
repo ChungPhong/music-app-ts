@@ -39,23 +39,33 @@ export const detail = async (req: Request, res: Response) => {
     _id: req.params.id,
   };
   const records = await Singer.findOne(find);
-
   res.render("admin/pages/singers/detail", {
     pageTitle: "Thông tin ca sĩ",
     records: records,
   });
+};
 
-  //   try {
-  //     const find = {
-  //       deleted: false,
-  //       _id: req.params.id,
-  //     };
-  //     const records = await Singer.findOne(find);
-  //     res.render("admin/page/singers/detail", {
-  //       pageTitle: "Thông tin ca sĩ",
-  //       records: records,
-  //     });
-  //   } catch (error) {
-  //     res.redirect(`/${systemConfig.prefixAdmin}/singers`);
-  //   }
+//[GET]Admin/product-categorry/edit:id
+export const edit = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const data = await Singer.findOne({
+    deleted: false,
+    _id: id,
+  });
+
+  res.render("admin/pages/singers/edit", {
+    pageTitle: "Chỉnh sửa danh mục sản phẩm",
+    data: data,
+  });
+};
+
+//[PATCH]Admin/product-categorry/edit:id
+export const editPatch = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    await Singer.updateOne({ _id: id }, req.body);
+    res.redirect(`/${systemConfig.prefixAdmin}/singers`);
+  } catch (error) {
+    res.redirect("back");
+  }
 };
