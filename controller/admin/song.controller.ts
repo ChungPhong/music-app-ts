@@ -107,3 +107,27 @@ export const editPatch = async (req: Request, res: Response) => {
   );
   res.redirect("back");
 };
+
+// [GET] /admin/songs/detail/:id
+export const detail = async (req: Request, res: Response) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+  const record = await Song.findOne(find);
+
+  if (record) {
+    const singer = await Singer.findOne({
+      deleted: false,
+      _id: record.singerId,
+    });
+    if (singer) {
+      record.singerId = singer.fullName;
+    }
+  }
+
+  res.render("admin/pages/songs/detail", {
+    pageTitle: "Thông tin bài hát",
+    records: record,
+  });
+};

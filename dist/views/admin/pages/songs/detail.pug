@@ -1,0 +1,31 @@
+extends ../../layout/default.pug
+
+block main
+  div(class="product-info")
+    h2(class="product-fullName") Chi tiết bài hát
+      if (records.title)
+        div(class="product-row")
+            span(class="label") Tiêu đề:
+            h5(class="value") #{records.title}
+    if (records.singerId)
+      div(class="product-row")
+        span(class="label") Họ tên:
+        h5(class="value") #{records.singerId}
+    if (records.status)
+      div(class="product-row")
+        span(class="label") Trạng thái:
+        h5(class="value")
+          if (records.status === "active")
+            span(class="badge badge-success") Hoạt động
+          else
+            span(class="badge badge-danger") Dừng Hoạt động
+    if (records.avatar)
+      div(class="product-row")
+        span(class="label") Hình ảnh:
+        span(class="value")
+          img(src=records.avatar style="width: 100px")
+    if(records.lyrics)
+      div(class="product-row")
+        span(class="label") Lời bài hát:
+        h5(class="value") #{records.lyrics}
+  

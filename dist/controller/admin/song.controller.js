@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
+exports.detail = exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
 const song_model_1 = __importDefault(require("../../model/song.model"));
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const singer_model_1 = __importDefault(require("../../model/singer.model"));
@@ -107,3 +107,24 @@ const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.redirect("back");
 });
 exports.editPatch = editPatch;
+const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const find = {
+        deleted: false,
+        _id: req.params.id,
+    };
+    const record = yield song_model_1.default.findOne(find);
+    if (record) {
+        const singer = yield singer_model_1.default.findOne({
+            deleted: false,
+            _id: record.singerId,
+        });
+        if (singer) {
+            record.singerId = singer.fullName;
+        }
+    }
+    res.render("admin/pages/songs/detail", {
+        pageTitle: "Thông tin bài hát",
+        records: record,
+    });
+});
+exports.detail = detail;
