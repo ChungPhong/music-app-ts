@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
+exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const singer_model_1 = __importDefault(require("../../model/singer.model"));
 const config_1 = require("../../config/config");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -77,3 +77,11 @@ const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.editPatch = editPatch;
+const deleteItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    yield singer_model_1.default.updateOne({ _id: id }, {
+        deleted: true,
+    });
+    res.redirect("back");
+});
+exports.deleteItem = deleteItem;
