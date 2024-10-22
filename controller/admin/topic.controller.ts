@@ -30,3 +30,16 @@ export const createPost = async (req: Request, res: Response) => {
   await topicSong.save();
   res.redirect(`/${systemConfig.prefixAdmin}/topics`);
 };
+
+//[GET]admin/singers/detail/:id
+export const detail = async (req: Request, res: Response) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id,
+  };
+  const records = await Topic.findOne(find);
+  res.render("admin/pages/topics/detail", {
+    pageTitle: "Thông tin chủ đề",
+    records: records,
+  });
+};
