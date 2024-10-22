@@ -78,3 +78,25 @@ if (buttonStatus.length > 0) {
   });
 }
 //END Filter status
+
+//Change status
+const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
+if (buttonChangeStatus.length > 0) {
+  const formChangeStatus = document.querySelector("#form-change-status");
+  const path = formChangeStatus.getAttribute("data-path");
+
+  buttonChangeStatus.forEach((item) => {
+    item.addEventListener("click", () => {
+      const statusCurrent = item.getAttribute("data-status");
+      const id = item.getAttribute("data-id");
+
+      let statusChange = statusCurrent == "active" ? "inactive" : "active";
+
+      const action = path + `/${statusChange}/${id}?_method=PATCH`;
+      formChangeStatus.action = action;
+
+      formChangeStatus.submit();
+    });
+  });
+}
+//End Change status

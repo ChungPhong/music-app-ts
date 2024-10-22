@@ -115,7 +115,7 @@ export const editPatch = async (req: Request, res: Response) => {
   }
 };
 
-//[DELETE]Admin/singers/delete:id
+//[DELETE]Admin/topics/delete:id
 export const deleteItem = async (req: Request, res: Response) => {
   const id = req.params.id;
 
@@ -124,6 +124,21 @@ export const deleteItem = async (req: Request, res: Response) => {
     { _id: id },
     {
       deleted: true,
+    }
+  );
+
+  res.redirect("back");
+};
+
+//[PATCH]Admin/topics/change-status/:status/:id
+export const changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Topic.updateOne(
+    { _id: id },
+    {
+      status: status,
     }
   );
 

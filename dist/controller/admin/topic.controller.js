@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
+exports.changeStatus = exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const config_1 = require("../../config/config");
 const pagination_1 = __importDefault(require("../../helpers/pagination"));
@@ -112,3 +112,12 @@ const deleteItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.redirect("back");
 });
 exports.deleteItem = deleteItem;
+const changeStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const status = req.params.status;
+    const id = req.params.id;
+    yield topic_model_1.default.updateOne({ _id: id }, {
+        status: status,
+    });
+    res.redirect("back");
+});
+exports.changeStatus = changeStatus;
