@@ -16,11 +16,16 @@ exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const config_1 = require("../../config/config");
 const pagination_1 = __importDefault(require("../../helpers/pagination"));
+const filterStatus_1 = __importDefault(require("../../helpers/filterStatus"));
 const search_1 = __importDefault(require("../../helpers/search"));
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const find = {
         deleted: false,
     };
+    const filterStatus = (0, filterStatus_1.default)(req.query);
+    if (req.query.status) {
+        find.status = req.query.status;
+    }
     const objectSearch = (0, search_1.default)(req.query);
     if (objectSearch.regex) {
         find.title = objectSearch.regex;
@@ -38,6 +43,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         topics: topics,
         pagination: objectPagination,
         keyword: objectSearch.keyword,
+        filterStatus: filterStatus,
     });
 });
 exports.index = index;

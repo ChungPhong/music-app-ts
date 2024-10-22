@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Topic from "../../model/topic.model";
 import { systemConfig } from "../../config/config";
 import paginationHelpers from "../../helpers/pagination";
+import filterStatusHelpers from "../../helpers/filterStatus";
 import searchHelper from "../../helpers/search";
 // [GET] /admin/topics/
 export const index = async (req: Request, res: Response) => {
@@ -13,6 +14,13 @@ export const index = async (req: Request, res: Response) => {
   const find: Find = {
     deleted: false,
   };
+
+  //đoạn bộ lọc
+  const filterStatus = filterStatusHelpers(req.query);
+  if (req.query.status) {
+    find.status = req.query.status as string;
+  }
+  //đoạn bộ lọc
 
   //search
   const objectSearch = searchHelper(req.query);
@@ -41,6 +49,7 @@ export const index = async (req: Request, res: Response) => {
     topics: topics,
     pagination: objectPagination,
     keyword: objectSearch.keyword,
+    filterStatus: filterStatus,
   });
 };
 
