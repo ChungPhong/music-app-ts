@@ -26,4 +26,7 @@ router.patch(
     uploadCloud.uploadSingle,
     controller.editPatch
   );
+
+router.delete("/delete/:id/", controller.deleteItem);
+
 export const topicRoutes: Router = router;

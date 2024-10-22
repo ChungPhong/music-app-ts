@@ -73,3 +73,18 @@ export const editPatch = async (req: Request, res: Response) => {
     res.redirect("back");
   }
 };
+
+//[DELETE]Admin/singers/delete:id
+export const deleteItem = async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  // await Product.deleteOne({ _id: id }); Xóa cứng
+  await Topic.updateOne(
+    { _id: id },
+    {
+      deleted: true,
+    }
+  );
+
+  res.redirect("back");
+};
