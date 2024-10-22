@@ -1,4 +1,5 @@
 extends ../../layout/default.pug
+include ../../mixins/pagination.pug
 block main
   h1(class="mb-4") #{pageTitle}
   .card.mb-3
@@ -59,10 +60,13 @@ block main
                     button-delete
                     data-id=item.id
                   ) Xóa
+
               form(
                 action="" 
                 method="POST"
                 id="form-delete-item"
                 data-path=`/${prefixAdmin}/topics/delete`
               )
+        +pagination(pagination)
   script(src="/admin/js/deleteItem.js")
+  script(src="/js/script.js")

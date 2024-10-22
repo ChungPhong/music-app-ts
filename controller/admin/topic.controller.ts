@@ -1,14 +1,33 @@
 import { Request, Response } from "express";
 import Topic from "../../model/topic.model";
 import { systemConfig } from "../../config/config";
+import paginationHelpers from "../../helpers/pagination";
 // [GET] /admin/topics/
 export const index = async (req: Request, res: Response) => {
-  const topics = await Topic.find({
+  const find = {
     deleted: false,
-  });
+  };
+
+  //PAGINATION
+  let initPagination = {
+    currentPage: 1,
+    limitPage: 5,
+  };
+  const countTask = await Topic.countDocuments(find);
+  const objectPagination = paginationHelpers(
+    initPagination,
+    req.query,
+    countTask
+  );
+  //END PAGINATION
+
+  const topics = await Topic.find(find)
+    .limit(objectPagination.limitPage)
+    .skip(objectPagination.skip);
   res.render("admin/pages/topics/index", {
     pageTitle: "Quản lý chủ đề",
     topics: topics,
+    pagination: objectPagination,
   });
 };
 

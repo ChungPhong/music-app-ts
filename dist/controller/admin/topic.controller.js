@@ -15,13 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const config_1 = require("../../config/config");
+const pagination_1 = __importDefault(require("../../helpers/pagination"));
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const topics = yield topic_model_1.default.find({
+    const find = {
         deleted: false,
-    });
+    };
+    let initPagination = {
+        currentPage: 1,
+        limitPage: 5,
+    };
+    const countTask = yield topic_model_1.default.countDocuments(find);
+    const objectPagination = (0, pagination_1.default)(initPagination, req.query, countTask);
+    const topics = yield topic_model_1.default.find(find)
+        .limit(objectPagination.limitPage)
+        .skip(objectPagination.skip);
     res.render("admin/pages/topics/index", {
         pageTitle: "Quản lý chủ đề",
         topics: topics,
+        pagination: objectPagination,
     });
 });
 exports.index = index;

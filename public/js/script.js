@@ -145,3 +145,17 @@ if (boxSearch) {
   });
 }
 //END  Search Suggest
+
+//Pagination
+const buttonPagination = document.querySelectorAll("[button-pagination]");
+if (buttonPagination) {
+  let url = new URL(window.location.href);
+  buttonPagination.forEach((item) => {
+    item.addEventListener("click", () => {
+      const pagination = item.getAttribute("button-pagination");
+      url.searchParams.set("page", pagination);
+      window.location.href = url.href;
+    });
+  });
+}
+//End pagination
