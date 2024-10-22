@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.detail = exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
+exports.deleteItem = exports.detail = exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
 const song_model_1 = __importDefault(require("../../model/song.model"));
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const singer_model_1 = __importDefault(require("../../model/singer.model"));
@@ -128,3 +128,11 @@ const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.detail = detail;
+const deleteItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    yield song_model_1.default.updateOne({ _id: id }, {
+        deleted: true,
+    });
+    res.redirect("back");
+});
+exports.deleteItem = deleteItem;

@@ -45,7 +45,7 @@ export const detail = async (req: Request, res: Response) => {
   });
 };
 
-//[GET]Admin/product-categorry/edit:id
+//[GET]Admin/singers/edit:id
 export const edit = async (req: Request, res: Response) => {
   const id = req.params.id;
   const data = await Singer.findOne({
@@ -59,7 +59,7 @@ export const edit = async (req: Request, res: Response) => {
   });
 };
 
-//[PATCH]Admin/product-categorry/edit:id
+//[PATCH]Admin/singers/edit:id
 export const editPatch = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
@@ -70,7 +70,7 @@ export const editPatch = async (req: Request, res: Response) => {
   }
 };
 
-//[DELETE]Admin/product/delete:id
+//[DELETE]Admin/singers/delete:id
 export const deleteItem = async (req: Request, res: Response) => {
   const id = req.params.id;
 

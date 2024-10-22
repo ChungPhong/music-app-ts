@@ -41,8 +41,9 @@ router.post("/create", upload.fields([
 ]), uploadCloud.uploadFields, controller.createPost);
 router.get("/edit/:id", controller.edit);
 router.patch("/edit/:id", upload.fields([
-    { name: 'avatar', maxCount: 1 },
-    { name: 'audio', maxCount: 1 }
+    { name: "avatar", maxCount: 1 },
+    { name: "audio", maxCount: 1 },
 ]), uploadCloud.uploadFields, controller.editPatch);
 router.get("/detail/:id", controller.detail);
+router.delete("/delete/:id", controller.deleteItem);
 exports.songRoutes = router;
