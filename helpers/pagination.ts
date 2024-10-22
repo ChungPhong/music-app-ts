@@ -13,9 +13,6 @@ const paginationHelpers = (
   if (query.page) {
     objectPagination.currentPage = parseInt(query.page);
   }
-  if (query.limit) {
-    objectPagination.limitPage = parseInt(query.limit);
-  }
 
   // Tính toán số trang tối đa
   const totalPage = Math.ceil(countRecords / objectPagination.limitPage);
@@ -29,6 +26,7 @@ const paginationHelpers = (
   // Tính toán số lượng bản ghi bỏ qua (skip)
   objectPagination.skip =
     (objectPagination.currentPage - 1) * objectPagination.limitPage;
+
 
   return objectPagination;
 };

@@ -16,16 +16,47 @@ if (uploadImage) {
 
 // upload-audio
 const uploadAudio = document.querySelector("[upload-audio]");
-if(uploadAudio) {
+if (uploadAudio) {
   const uploadAudioInput = uploadAudio.querySelector("[upload-audio-input]");
   const uploadAudioPlay = uploadAudio.querySelector("[upload-audio-play]");
   const uploadAudioSource = uploadAudioPlay.querySelector("source");
   uploadAudioInput.addEventListener("change", () => {
     const file = uploadAudioInput.files[0];
-    if(file) {
+    if (file) {
       uploadAudioSource.src = URL.createObjectURL(file);
       uploadAudioPlay.load();
     }
   });
 }
 // End upload-audio
+
+//Pagination
+const buttonPagination = document.querySelectorAll("[button-pagination]");
+if (buttonPagination) {
+  let url = new URL(window.location.href);
+  buttonPagination.forEach((item) => {
+    item.addEventListener("click", () => {
+      const pagination = item.getAttribute("button-pagination");
+      url.searchParams.set("page", pagination);
+      window.location.href = url.href;
+    });
+  });
+}
+//End pagination
+
+//Form search
+const formSearch = document.querySelector("#form-search");
+if (formSearch) {
+  let url = new URL(window.location.href);
+  formSearch.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const keyword = e.target.elements.keyword.value;
+    if (keyword) {
+      url.searchParams.set("keyword", keyword);
+    } else {
+      url.searchParams.delete("keyword");
+    }
+    window.location.href = url.href;
+  });
+}
+//END Form search

@@ -16,16 +16,20 @@ exports.deleteItem = exports.editPatch = exports.edit = exports.detail = exports
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const config_1 = require("../../config/config");
 const pagination_1 = __importDefault(require("../../helpers/pagination"));
+const search_1 = __importDefault(require("../../helpers/search"));
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const find = {
         deleted: false,
     };
-    let initPagination = {
+    const objectSearch = (0, search_1.default)(req.query);
+    if (objectSearch.regex) {
+        find.title = objectSearch.regex;
+    }
+    const countProduct = yield topic_model_1.default.countDocuments(find);
+    const objectPagination = (0, pagination_1.default)({
         currentPage: 1,
-        limitPage: 5,
-    };
-    const countTask = yield topic_model_1.default.countDocuments(find);
-    const objectPagination = (0, pagination_1.default)(initPagination, req.query, countTask);
+        limitPage: 4,
+    }, req.query, countProduct);
     const topics = yield topic_model_1.default.find(find)
         .limit(objectPagination.limitPage)
         .skip(objectPagination.skip);
@@ -33,6 +37,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         pageTitle: "Quản lý chủ đề",
         topics: topics,
         pagination: objectPagination,
+        keyword: objectSearch.keyword,
     });
 });
 exports.index = index;

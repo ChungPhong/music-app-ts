@@ -4,9 +4,6 @@ const paginationHelpers = (objectPagination, query, countRecords) => {
     if (query.page) {
         objectPagination.currentPage = parseInt(query.page);
     }
-    if (query.limit) {
-        objectPagination.limitPage = parseInt(query.limit);
-    }
     const totalPage = Math.ceil(countRecords / objectPagination.limitPage);
     objectPagination.totalPage = totalPage;
     if (objectPagination.currentPage > totalPage) {

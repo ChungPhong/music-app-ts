@@ -2,22 +2,34 @@ import { Request, Response } from "express";
 import Topic from "../../model/topic.model";
 import { systemConfig } from "../../config/config";
 import paginationHelpers from "../../helpers/pagination";
+import searchHelper from "../../helpers/search";
 // [GET] /admin/topics/
 export const index = async (req: Request, res: Response) => {
-  const find = {
+  interface Find {
+    deleted: boolean;
+    status?: string;
+    title?: RegExp;
+  }
+  const find: Find = {
     deleted: false,
   };
 
+  //search
+  const objectSearch = searchHelper(req.query);
+  if (objectSearch.regex) {
+    find.title = objectSearch.regex;
+  }
+  //END search
+
   //PAGINATION
-  let initPagination = {
-    currentPage: 1,
-    limitPage: 5,
-  };
-  const countTask = await Topic.countDocuments(find);
+  const countProduct = await Topic.countDocuments(find);
   const objectPagination = paginationHelpers(
-    initPagination,
+    {
+      currentPage: 1,
+      limitPage: 4,
+    },
     req.query,
-    countTask
+    countProduct
   );
   //END PAGINATION
 
@@ -28,6 +40,7 @@ export const index = async (req: Request, res: Response) => {
     pageTitle: "Quản lý chủ đề",
     topics: topics,
     pagination: objectPagination,
+    keyword: objectSearch.keyword,
   });
 };
 
