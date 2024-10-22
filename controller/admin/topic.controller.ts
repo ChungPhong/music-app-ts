@@ -43,3 +43,33 @@ export const detail = async (req: Request, res: Response) => {
     records: records,
   });
 };
+
+//[GET]Admin/topics/edit:id
+export const edit = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const data = await Topic.findOne({
+    deleted: false,
+    _id: id,
+  });
+
+  res.render("admin/pages/topics/edit", {
+    pageTitle: "Chỉnh sửa chủ đề",
+    data: data,
+  });
+};
+
+//[PATCH]Admin/topics/edit:id
+export const editPatch = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const topic = {
+    title: req.body.title,
+    status: req.body.status,
+    avatar: req.body.avatar,
+  };
+  try {
+    await Topic.updateOne({ _id: id }, topic);
+    res.redirect(`/${systemConfig.prefixAdmin}/topics`);
+  } catch (error) {
+    res.redirect("back");
+  }
+};

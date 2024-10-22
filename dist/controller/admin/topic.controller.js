@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.detail = exports.createPost = exports.create = exports.index = void 0;
+exports.editPatch = exports.edit = exports.detail = exports.createPost = exports.create = exports.index = void 0;
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
 const config_1 = require("../../config/config");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,3 +54,31 @@ const detail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.detail = detail;
+const edit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const data = yield topic_model_1.default.findOne({
+        deleted: false,
+        _id: id,
+    });
+    res.render("admin/pages/topics/edit", {
+        pageTitle: "Chỉnh sửa chủ đề",
+        data: data,
+    });
+});
+exports.edit = edit;
+const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const topic = {
+        title: req.body.title,
+        status: req.body.status,
+        avatar: req.body.avatar,
+    };
+    try {
+        yield topic_model_1.default.updateOne({ _id: id }, topic);
+        res.redirect(`/${config_1.systemConfig.prefixAdmin}/topics`);
+    }
+    catch (error) {
+        res.redirect("back");
+    }
+});
+exports.editPatch = editPatch;
