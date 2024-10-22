@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.index = void 0;
+exports.createPost = exports.create = exports.index = void 0;
 const topic_model_1 = __importDefault(require("../../model/topic.model"));
+const config_1 = require("../../config/config");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const topics = yield topic_model_1.default.find({
         deleted: false,
@@ -24,3 +25,20 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.index = index;
+const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.render("admin/pages/topics/create", {
+        pageTitle: "Thêm mới chủ đề",
+    });
+});
+exports.create = create;
+const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const topic = {
+        title: req.body.title,
+        status: req.body.status,
+        avatar: req.body.avatar,
+    };
+    const topicSong = new topic_model_1.default(topic);
+    yield topicSong.save();
+    res.redirect(`/${config_1.systemConfig.prefixAdmin}/topics`);
+});
+exports.createPost = createPost;
